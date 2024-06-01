@@ -1,0 +1,70 @@
+name: CI/CD
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cicd:
+    name: CI/CD
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Install
+        run: pnpm install
+
+      - name: Type Check
+        shell: bash
+        run: pnpm type-check
+
+      - name: Lint
+        shell: bash
+        run: pnpm lint
+
+      - name: Test
+        shell: bash
+        run: pnpm test
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::211069357908:role/yaneport-cloud-cd-deployment-role
+          aws-region: ap-northeast-1
+
+      - name: CDK Doctor
+        shell: bash
+        run: pnpm cdk doctor
+        env:
+          ENV_NAME: prd
+
+      - name: CDK Deploy
+        shell: bash
+        run: |
+          pnpm cdk deploy \
+            "*AppStack" \
+            --require-approval=never
+        env:
+          ENV_NAME: prd
