@@ -40,9 +40,9 @@ jobs:
         shell: bash
         run: pnpm type-check
 
-      - name: Lint
+      - name: Check
         shell: bash
-        run: pnpm lint
+        run: pnpm check
 
       - name: Test
         shell: bash
