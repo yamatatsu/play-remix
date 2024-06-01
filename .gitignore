@@ -1,14 +1,1 @@
-*.js
-*.d.ts
-!types.d.ts
 node_modules
-
-.env*
-!.env.example
-
-htmlcov
-.coverage
-.build
-
-coverage
-.vscode
