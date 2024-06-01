@@ -1,1 +1,1 @@
-pnpm check
+pnpm run '/(lint|check|test|type-check)/'
