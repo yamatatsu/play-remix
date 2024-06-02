@@ -7,11 +7,12 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true
-		},
-		"ignore": ["coverage", "cdk.out"]
+		}
 	},
 	"formatter": {
-		"enabled": true,
-		"ignore": ["cdk.out"]
+		"enabled": true
+	},
+	"files": {
+		"ignore": ["coverage", "cdk.out", "build"]
 	}
 }
