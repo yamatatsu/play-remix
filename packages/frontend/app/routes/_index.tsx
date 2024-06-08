@@ -1,3 +1,12 @@
+import {
+	Box,
+	Heading,
+	List,
+	ListIcon,
+	ListItem,
+	OrderedList,
+	UnorderedList,
+} from "@chakra-ui/react";
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
@@ -10,10 +19,10 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
 	return (
-		<div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-			<h1>Welcome to Remix (SPA Mode)</h1>
-			<ul>
-				<li>
+		<Box>
+			<Heading>Welcome to Remix (SPA Mode)</Heading>
+			<List>
+				<ListItem>
 					<a
 						target="_blank"
 						href="https://remix.run/guides/spa-mode"
@@ -21,16 +30,16 @@ export default function Index() {
 					>
 						SPA Mode Guide
 					</a>
-				</li>
-				<li>
+				</ListItem>
+				<ListItem>
 					<a target="_blank" href="https://remix.run/docs" rel="noreferrer">
 						Remix Docs
 					</a>
-				</li>
-				<li>
+				</ListItem>
+				<ListItem>
 					<Link to="devices/a">device A</Link>
-				</li>
-			</ul>
-		</div>
+				</ListItem>
+			</List>
+		</Box>
 	);
 }
